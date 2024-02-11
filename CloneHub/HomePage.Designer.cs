@@ -36,8 +36,6 @@
 			this.repoUrlTextBox = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.cloneButton = new System.Windows.Forms.Button();
-			this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-			this.progressBar = new System.Windows.Forms.ProgressBar();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -75,7 +73,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(36, 163);
+			this.label3.Location = new System.Drawing.Point(36, 229);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(91, 24);
 			this.label3.TabIndex = 3;
@@ -112,7 +110,7 @@
 			// cloneButton
 			// 
 			this.cloneButton.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cloneButton.Location = new System.Drawing.Point(223, 401);
+			this.cloneButton.Location = new System.Drawing.Point(192, 389);
 			this.cloneButton.Name = "cloneButton";
 			this.cloneButton.Size = new System.Drawing.Size(302, 43);
 			this.cloneButton.TabIndex = 5;
@@ -120,27 +118,13 @@
 			this.cloneButton.UseVisualStyleBackColor = true;
 			this.cloneButton.Click += new System.EventHandler(this.cloneButton_Click);
 			// 
-			// BackgroundWorker
-			// 
-			this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
-			this.BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker_ProgressChanged);
-			this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
-			// 
-			// progressBar
-			// 
-			this.progressBar.Location = new System.Drawing.Point(133, 359);
-			this.progressBar.Name = "progressBar";
-			this.progressBar.Size = new System.Drawing.Size(497, 36);
-			this.progressBar.TabIndex = 6;
-			// 
 			// HomePage
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(642, 499);
-			this.Controls.Add(this.progressBar);
+			this.ClientSize = new System.Drawing.Size(642, 444);
 			this.Controls.Add(this.cloneButton);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.repoUrlTextBox);
@@ -155,6 +139,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "CloneHub";
 			this.TopMost = true;
+			this.Load += new System.EventHandler(this.HomePage_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -170,8 +155,6 @@
 		private System.Windows.Forms.TextBox repoUrlTextBox;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Button cloneButton;
-		private System.ComponentModel.BackgroundWorker BackgroundWorker;
-		private System.Windows.Forms.ProgressBar progressBar;
 	}
 }
 

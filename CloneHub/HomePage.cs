@@ -59,40 +59,58 @@ namespace CloneHub
 					urls.Add(repoUrl);
 				}
 			}
-			// Start the background worker to perform the cloning operation
-			BackgroundWorker.RunWorkerAsync(urls);
+
+			if (urls.Count == 0)
+			{
+				MessageBox.Show("Please enter at least one valid repository URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			GitRepository.CloneRepository(urls.ToArray(), pathTextBox.Text); // Call the CloneRepositories method with the URLs and the pathTex
+
+
 		}
 
-		private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+		private void HomePage_Load(object sender, EventArgs e)
 		{
-			var worker = sender as BackgroundWorker;
-			var urls = e.Argument as List<string>;
+			// Add Placeholders to the repoUrlTextBox and pathTextBox which disappears when the user starts typing
+			repoUrlTextBox.Text = "Enter repository URL here";
+			repoUrlTextBox.ForeColor = Color.Gray;
+			repoUrlTextBox.GotFocus += RemovePlaceholderText;
+			repoUrlTextBox.LostFocus += AddPlaceholderText;
 
-			for (int i=0; i < urls.Count; i++)
+			pathTextBox.Text = "Enter path here or select a folder";
+			pathTextBox.ForeColor = Color.Gray;
+			pathTextBox.GotFocus += RemovePlaceholderText;
+			pathTextBox.LostFocus += AddPlaceholderText;
+		}
+
+		private void RemovePlaceholderText(object sender, EventArgs e)
+		{
+			TextBox textBox = (TextBox)sender;
+			if (textBox.Text == "Enter repository URL here" || textBox.Text == "Enter path here")
 			{
-				var url = urls[i];
-
-				// Calculate the progress percentage for the url being cloned
-				var progress = (i + 1) * 100 / urls.Count;
-
-				// Clone the repository to the path
-				GitRepository.CloneRepository(url, pathTextBox.Text);
-
-				// Report the progress to the UI thread
-				worker.ReportProgress(progress, url);
+				textBox.Text = "";
+				textBox.ForeColor = Color.Black;
 			}
 		}
 
-		private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		private void AddPlaceholderText(object sender, EventArgs e)
 		{
-			// Display the results
-				MessageBox.Show($"Repository cloned successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}
-
-		private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-		{
-			// Update progress bar
-			progressBar.Value = e.ProgressPercentage;
+			TextBox textBox = (TextBox)sender;
+			if (string.IsNullOrWhiteSpace(textBox.Text))
+			{
+				if (textBox == repoUrlTextBox)
+				{
+					textBox.Text = "Enter repository URL here";
+				}
+				else if (textBox == pathTextBox)
+				{
+					textBox.Text = "Enter path here";
+				}
+				textBox.ForeColor = Color.Gray;
+			}
 		}
 	}
+	
 }
